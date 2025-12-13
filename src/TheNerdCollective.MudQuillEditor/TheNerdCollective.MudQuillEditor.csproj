@@ -12,6 +12,7 @@
     <LicenseExpression>Apache-2.0</LicenseExpression>
     <RepositoryUrl>https://github.com/janhjordie/Nerd.MudEditor</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,5 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>

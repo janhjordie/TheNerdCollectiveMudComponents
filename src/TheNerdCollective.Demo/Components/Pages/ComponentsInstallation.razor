@@ -1,0 +1,29 @@
+@page "/components/installation"
+@rendermode InteractiveServer
+
+<PageTitle>Components Installation - The Nerd Collective</PageTitle>
+
+<div class="mb-6">
+    <MudText Typo="Typo.h3" GutterBottom="true">Components Installation</MudText>
+    <MudText Typo="Typo.subtitle1">Get started with our utility components</MudText>
+</div>
+
+<MudPaper Class="pa-6 mb-6">
+    <MudText Typo="Typo.h5" GutterBottom="true">NuGet Package</MudText>
+    
+    <MudText Typo="Typo.h6" Class="mt-4 mb-2">Install via NuGet CLI</MudText>
+    <MudPaper Class="pa-4 mb-4" Elevation="0" Style="background-color: var(--mud-palette-background-grey);">
+        <code>dotnet add package TheNerdCollective.Components</code>
+    </MudPaper>
+
+    <MudText Typo="Typo.h6" Class="mt-4 mb-2">Or via Package Manager</MudText>
+    <MudPaper Class="pa-4 mb-4" Elevation="0" Style="background-color: var(--mud-palette-background-grey);">
+        <code>Install-Package TheNerdCollective.Components</code>
+    </MudPaper>
+</MudPaper>
+
+<MudPaper Class="pa-6">
+    <MudAlert Severity="Severity.Info">
+        <MudText>Components are still being developed. This installation guide will be updated as new utilities are released.</MudText>
+    </MudAlert>
+</MudPaper>

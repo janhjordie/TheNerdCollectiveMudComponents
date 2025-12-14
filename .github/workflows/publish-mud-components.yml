@@ -1,4 +1,4 @@
-name: Publish MudQuillEditor Component
+name: Publish MudComponents - MudQuillEditor
 
 on:
   workflow_dispatch:

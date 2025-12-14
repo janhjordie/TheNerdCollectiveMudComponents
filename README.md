@@ -1,8 +1,20 @@
-# MudQuillEditor
+# The Nerd Collective - Components Library
 
-A production-ready Blazor rich-text editor component for MudBlazor 8.15+ and .NET 10+, powered by [Quill 2.0](https://quilljs.com/).
+A comprehensive collection of production-ready Blazor components for .NET 10+ applications. This library includes both generic .NET components and MudBlazor-specific components.
 
-## Features
+## Component Categories
+
+### MudComponents
+UI components built specifically for [MudBlazor 8.15+](https://mudblazor.com/), providing seamless integration with MudBlazor's design system.
+
+- **MudQuillEditor** - A rich-text editor component powered by [Quill 2.0](https://quilljs.com/)
+
+### Components
+Generic .NET utilities and helper components for building robust Blazor applications.
+
+*More utilities coming soon.*
+
+## MudQuillEditor Features
 
 - **Two-way Data Binding** - Use `@bind-Value` for seamless data synchronization
 - **Automatic Dark/Light Theme Support** - Adapts to MudBlazor theme changes
@@ -16,24 +28,34 @@ A production-ready Blazor rich-text editor component for MudBlazor 8.15+ and .NE
 
 ## Installation
 
-### Step 1: Add NuGet Package
+### NuGet Packages
 
-Install via NuGet Package Manager:
+Install the main component library:
 
 ```bash
-dotnet add package TheNerdCollective.MudQuillEditor
+dotnet add package TheNerdCollective.Components
 ```
 
-Or search for "TheNerdCollective.MudQuillEditor" in Visual Studio NuGet Explorer.
+Or install individual components:
 
-### Step 2: Add Script Reference
+#### MudComponents
+
+```bash
+dotnet add package TheNerdCollective.MudComponents.MudQuillEditor
+```
+
+### MudQuillEditor Setup
+
+### MudQuillEditor Setup
+
+#### Step 1: Add Script Reference
 
 In your `App.razor`, add the MudQuillEditor script reference **before** the Blazor runtime script:
 
 ```html
 <head>
     <!-- Other head content -->
-    <script src="_content/TheNerdCollective.MudQuillEditor/js/mudquilleditor.js"></script>
+    <script src="_content/TheNerdCollective.MudComponents.MudQuillEditor/js/mudquilleditor.js"></script>
 </head>
 <body>
     <!-- Routes and Components -->
@@ -46,15 +68,15 @@ In your `App.razor`, add the MudQuillEditor script reference **before** the Blaz
 - MudQuillEditor automatically loads Quill CSS/JS from jsDelivr CDN
 - No additional setup needed
 
-### Step 3: Import the Component
+#### Step 2: Import the Component
 
 Add to your `_Imports.razor`:
 
 ```csharp
-@using TheNerdCollective.MudQuillEditor
+@using TheNerdCollective.MudComponents.MudQuillEditor
 ```
 
-## Usage
+## Usage - MudQuillEditor
 
 ### Basic Example
 
@@ -96,7 +118,7 @@ Add to your `_Imports.razor`:
 }
 ```
 
-## Component Parameters
+## Component Parameters - MudQuillEditor
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -109,7 +131,7 @@ Add to your `_Imports.razor`:
 | `Toolbar` | `object?` | Default | Customizable toolbar modules (bold, italic, underline, lists, link, image) |
 | `Placeholder` | `string?` | null | Placeholder text shown when editor is empty |
 
-## Component Methods
+## Component Methods - MudQuillEditor
 
 | Method | Returns | Description |
 |--------|---------|-------------|
@@ -133,7 +155,7 @@ dotnet run
 
 Then visit `https://localhost:5001` in your browser.
 
-## Toolbar Configuration
+## Toolbar Configuration - MudQuillEditor
 
 The toolbar can be customized by passing an array of modules:
 
@@ -180,6 +202,14 @@ Developed by [janhjordie](https://github.com/janhjordie)
 ---
 
 **MudQuillEditor** is a production-ready component we use for our customers' applications. It combines the power of Quill 2.0 with MudBlazor's beautiful design system.
+
+## Documentation
+
+For detailed documentation and interactive demos, visit the [online demo application](https://thenerdcollective-components.vercel.app/).
+
+---
+
+Built with ❤️ by [The Nerd Collective Aps](https://www.thenerdcollective.dk/)
 
 
 ```

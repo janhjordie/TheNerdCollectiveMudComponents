@@ -1,6 +1,7 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Options;
+using TheNerdCollective.Helpers;
 
 namespace TheNerdCollective.Services.Azure;
 
@@ -122,5 +123,43 @@ public class AzureBlobService
         }
 
         return blobs;
+    }
+
+    /// <summary>
+    /// Compresses data and uploads to the default container.
+    /// </summary>
+    public async Task CompressAndUploadAsync(byte[] data, string destinationPath)
+    {
+        var compressed = ZipHelpers.Compress(data);
+        if (compressed != null)
+            await UploadAsync(compressed, destinationPath);
+    }
+
+    /// <summary>
+    /// Compresses data and uploads to a specific container.
+    /// </summary>
+    public async Task CompressAndUploadAsync(byte[] data, string container, string destinationPath)
+    {
+        var compressed = ZipHelpers.Compress(data);
+        if (compressed != null)
+            await UploadAsync(compressed, container.ToLower(), destinationPath);
+    }
+
+    /// <summary>
+    /// Downloads and decompresses data from the default container.
+    /// </summary>
+    public async Task<byte[]> DownloadAndDecompressAsync(string sourcePath)
+    {
+        var compressed = await DownloadAsync(sourcePath);
+        return ZipHelpers.Decompress(compressed);
+    }
+
+    /// <summary>
+    /// Downloads and decompresses data from a specific container.
+    /// </summary>
+    public async Task<byte[]> DownloadAndDecompressAsync(string container, string sourcePath)
+    {
+        var compressed = await DownloadAsync(container, sourcePath);
+        return ZipHelpers.Decompress(compressed);
     }
 }

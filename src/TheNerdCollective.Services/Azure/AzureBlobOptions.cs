@@ -6,6 +6,11 @@ namespace TheNerdCollective.Services.Azure;
 public class AzureBlobOptions
 {
     /// <summary>
+    /// Configuration section key in appsettings.json
+    /// </summary>
+    public const string AppSettingKey = "AzureBlob";
+
+    /// <summary>
     /// Gets or sets the Azure Storage connection string.
     /// </summary>
     public required string ConnectionString { get; set; }

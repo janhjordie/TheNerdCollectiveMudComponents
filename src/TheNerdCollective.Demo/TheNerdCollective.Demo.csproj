@@ -9,6 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="MudBlazor" Version="8.*" />
-    <ProjectReference Include="..\src\TheNerdCollective.Components\TheNerdCollective.Components.csproj" />
+    <ProjectReference Include="..\TheNerdCollective.Components\TheNerdCollective.Components.csproj" />
   </ItemGroup>
 </Project>

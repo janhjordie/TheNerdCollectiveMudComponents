@@ -1,5 +1,5 @@
 using MudBlazor.Services;
-using TheNerdCollective.MudQuillEditor.Demo.Components;
+using TheNerdCollective.Demo.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 

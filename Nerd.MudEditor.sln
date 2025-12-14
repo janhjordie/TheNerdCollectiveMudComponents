@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheNerdCollective.MudCompon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheNerdCollective.Components", "src\TheNerdCollective.Components\TheNerdCollective.Components.csproj", "{3E5F4375-0EC3-3488-E4CG-E1EG8D974039}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheNerdCollective.MudQuillEditor.Demo", "TheNerdCollective.MudQuillEditor.Demo\TheNerdCollective.MudQuillEditor.Demo.csproj", "{66610D69-1291-8012-CCEF-BEBC7FBF95A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheNerdCollective.Demo", "src\TheNerdCollective.Demo\TheNerdCollective.Demo.csproj", "{66610D69-1291-8012-CCEF-BEBC7FBF95A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

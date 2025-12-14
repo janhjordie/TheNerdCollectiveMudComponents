@@ -5,6 +5,7 @@ obj/
 # Visual Studio
 .vs/
 .vscode/
+!.vscode/settings.json
 *.user
 *.suo
 *.sln.iml

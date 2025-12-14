@@ -9,7 +9,7 @@
       "TheNerdCollective.MudQuillEditor.Demo/1.0.0": {
         "dependencies": {
           "MudBlazor": "8.15.0",
-          "TheNerdCollective.MudQuillEditor": "0.1.0"
+          "TheNerdCollective.Components": "0.1.0"
         },
         "runtime": {
           "TheNerdCollective.MudQuillEditor.Demo.dll": {}
@@ -23,12 +23,23 @@
           }
         }
       },
-      "TheNerdCollective.MudQuillEditor/0.1.0": {
+      "TheNerdCollective.Components/0.1.0": {
+        "dependencies": {
+          "TheNerdCollective.MudComponents.MudQuillEditor": "0.1.0"
+        },
+        "runtime": {
+          "TheNerdCollective.Components.dll": {
+            "assemblyVersion": "0.1.0.0",
+            "fileVersion": "0.1.0.0"
+          }
+        }
+      },
+      "TheNerdCollective.MudComponents.MudQuillEditor/0.1.0": {
         "dependencies": {
           "MudBlazor": "8.15.0"
         },
         "runtime": {
-          "TheNerdCollective.MudQuillEditor.dll": {
+          "TheNerdCollective.MudComponents.MudQuillEditor.dll": {
             "assemblyVersion": "0.1.0.0",
             "fileVersion": "0.1.0.0"
           }
@@ -49,7 +60,12 @@
       "path": "mudblazor/8.15.0",
       "hashPath": "mudblazor.8.15.0.nupkg.sha512"
     },
-    "TheNerdCollective.MudQuillEditor/0.1.0": {
+    "TheNerdCollective.Components/0.1.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TheNerdCollective.MudComponents.MudQuillEditor/0.1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/TheNerdCollective.MudComponents.MudQuillEditor.props" />
+</Project>

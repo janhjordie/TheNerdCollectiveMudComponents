@@ -4,7 +4,9 @@ VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheNerdCollective.MudQuillEditor", "src\TheNerdCollective.MudQuillEditor\TheNerdCollective.MudQuillEditor.csproj", "{2D5E4374-0EB2-3387-E3BF-E0DF7C873938}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheNerdCollective.MudComponents.MudQuillEditor", "src\TheNerdCollective.MudComponents.MudQuillEditor\TheNerdCollective.MudComponents.MudQuillEditor.csproj", "{2D5E4374-0EB2-3387-E3BF-E0DF7C873938}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheNerdCollective.Components", "src\TheNerdCollective.Components\TheNerdCollective.Components.csproj", "{3E5F4375-0EC3-3488-E4CG-E1EG8D974039}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheNerdCollective.MudQuillEditor.Demo", "TheNerdCollective.MudQuillEditor.Demo\TheNerdCollective.MudQuillEditor.Demo.csproj", "{66610D69-1291-8012-CCEF-BEBC7FBF95A8}"
 EndProject
@@ -28,6 +30,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2D5E4374-0EB2-3387-E3BF-E0DF7C873938} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{3E5F4375-0EC3-3488-E4CG-E1EG8D974039} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{66610D69-1291-8012-CCEF-BEBC7FBF95A8} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

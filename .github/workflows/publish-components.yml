@@ -1,0 +1,57 @@
+name: Publish Components Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g., 0.1.0)'
+        required: true
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish-components:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Update Version
+        run: |
+          sed -i 's/<Version>.*<\/Version>/<Version>${{ github.event.inputs.version }}<\/Version>/g' src/TheNerdCollective.Components/TheNerdCollective.Components.csproj
+
+      - name: Restore
+        run: dotnet restore src/TheNerdCollective.Components
+
+      - name: Build
+        run: dotnet build src/TheNerdCollective.Components -c Release --no-restore
+
+      - name: Pack
+        run: dotnet pack src/TheNerdCollective.Components -c Release -o artifacts --no-build
+
+      - name: NuGet Login
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: janhjordie
+
+      - name: Push to NuGet
+        run: |
+          for nupkg in artifacts/*.nupkg; do
+            dotnet nuget push "$nupkg" --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+          done
+
+      - name: Create Git Tag
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git tag -a "components-v${{ github.event.inputs.version }}" -m "Components ${{ github.event.inputs.version }}"
+          git push origin "components-v${{ github.event.inputs.version }}"

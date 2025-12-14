@@ -1,5 +1,3 @@
-/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.MudQuillEditor.staticwebassets.runtime.json
-/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.MudQuillEditor.staticwebassets.endpoints.json
 /Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/appsettings.Development.json
 /Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/appsettings.json
 /Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.MudQuillEditor.Demo.staticwebassets.runtime.json
@@ -10,8 +8,6 @@
 /Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.MudQuillEditor.Demo.dll
 /Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.MudQuillEditor.Demo.pdb
 /Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/MudBlazor.dll
-/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.MudQuillEditor.dll
-/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.MudQuillEditor.pdb
 /Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/obj/Debug/net10.0/EmbeddedAttribute.cs
 /Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/obj/Debug/net10.0/ValidatableTypeAttribute.cs
 /Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/obj/Debug/net10.0/TheNerdCollective.MudQuillEditor.Demo.csproj.AssemblyReference.cache
@@ -48,3 +44,10 @@
 /Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/obj/Debug/net10.0/compressed/n4si0ngqxf-{0}-w4nlegndw0-w4nlegndw0.gz
 /Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/obj/Debug/net10.0/compressed/w815383hou-{0}-4wvvzhr71j-4wvvzhr71j.gz
 /Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/obj/Debug/net10.0/compressed/2gda8fjqm9-{0}-okkpydwl31-okkpydwl31.gz
+/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.MudComponents.MudQuillEditor.staticwebassets.runtime.json
+/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.MudComponents.MudQuillEditor.staticwebassets.endpoints.json
+/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.Components.dll
+/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.MudComponents.MudQuillEditor.dll
+/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.MudComponents.MudQuillEditor.pdb
+/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/bin/Debug/net10.0/TheNerdCollective.Components.pdb
+/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/TheNerdCollective.MudQuillEditor.Demo/obj/Debug/net10.0/TheNerdCollective.MudQuillEditor.Demo.sourcelink.json

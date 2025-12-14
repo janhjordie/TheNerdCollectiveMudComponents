@@ -32,17 +32,30 @@
           "buildMultiTargeting/MudBlazor.props": {}
         }
       },
-      "TheNerdCollective.MudQuillEditor/0.1.0": {
+      "TheNerdCollective.Components/0.1.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "TheNerdCollective.MudComponents.MudQuillEditor": "0.1.0"
+        },
+        "compile": {
+          "bin/placeholder/TheNerdCollective.Components.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TheNerdCollective.Components.dll": {}
+        }
+      },
+      "TheNerdCollective.MudComponents.MudQuillEditor/0.1.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "MudBlazor": "8.15.0"
         },
         "compile": {
-          "bin/placeholder/TheNerdCollective.MudQuillEditor.dll": {}
+          "bin/placeholder/TheNerdCollective.MudComponents.MudQuillEditor.dll": {}
         },
         "runtime": {
-          "bin/placeholder/TheNerdCollective.MudQuillEditor.dll": {}
+          "bin/placeholder/TheNerdCollective.MudComponents.MudQuillEditor.dll": {}
         }
       }
     }
@@ -98,17 +111,22 @@
         "staticwebassets/MudBlazor.min.js"
       ]
     },
-    "TheNerdCollective.MudQuillEditor/0.1.0": {
+    "TheNerdCollective.Components/0.1.0": {
       "type": "project",
-      "path": "../src/TheNerdCollective.MudQuillEditor/TheNerdCollective.MudQuillEditor.csproj",
-      "msbuildProject": "../src/TheNerdCollective.MudQuillEditor/TheNerdCollective.MudQuillEditor.csproj"
+      "path": "../src/TheNerdCollective.Components/TheNerdCollective.Components.csproj",
+      "msbuildProject": "../src/TheNerdCollective.Components/TheNerdCollective.Components.csproj"
+    },
+    "TheNerdCollective.MudComponents.MudQuillEditor/0.1.0": {
+      "type": "project",
+      "path": "../src/TheNerdCollective.MudComponents.MudQuillEditor/TheNerdCollective.MudComponents.MudQuillEditor.csproj",
+      "msbuildProject": "../src/TheNerdCollective.MudComponents.MudQuillEditor/TheNerdCollective.MudComponents.MudQuillEditor.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "Microsoft.AspNetCore.App.Internal.Assets >= 10.0.1",
       "MudBlazor >= 8.*",
-      "TheNerdCollective.MudQuillEditor >= 0.1.0"
+      "TheNerdCollective.Components >= 0.1.0"
     ]
   },
   "packageFolders": {
@@ -137,8 +155,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/src/TheNerdCollective.MudQuillEditor/TheNerdCollective.MudQuillEditor.csproj": {
-              "projectPath": "/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/src/TheNerdCollective.MudQuillEditor/TheNerdCollective.MudQuillEditor.csproj"
+            "/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/src/TheNerdCollective.Components/TheNerdCollective.Components.csproj": {
+              "projectPath": "/Users/janhjordie/Projects/The Nerd Collective/Nerd.MudEditor/src/TheNerdCollective.Components/TheNerdCollective.Components.csproj"
             }
           }
         }

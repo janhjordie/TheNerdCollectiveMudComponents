@@ -13,7 +13,7 @@ When user says "release MudComponent", "release Services", "release Components",
 3. Create tag: `git tag -a vX.Y.Z -m "Release vX.Y.Z - <description>"`
 4. Push: `git push origin main && git push origin vX.Y.Z`
 5. Build: `cd src/TheNerdCollective.MudComponents.MudQuillEditor && dotnet pack -c Release`
-6. Publish: `dotnet nuget push bin/Release/TheNerdCollective.MudComponents.X.Y.Z.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json`
+6. Publish: `dotnet nuget push bin/Release/TheNerdCollective.MudComponents.X.Y.Z.nupkg --source https://api.nuget.org/v3/index.json` (uses trusted publishing)
 
 ### Release Services (TheNerdCollective.Services)
 1. Bump version in: `src/TheNerdCollective.Services/TheNerdCollective.Services.csproj`
@@ -21,7 +21,7 @@ When user says "release MudComponent", "release Services", "release Components",
 3. Create tag: `git tag -a services-vX.Y.Z -m "Release vX.Y.Z - <description>"`
 4. Push: `git push origin main && git push origin services-vX.Y.Z`
 5. Build: `cd src/TheNerdCollective.Services && dotnet pack -c Release`
-6. Publish: `dotnet nuget push bin/Release/TheNerdCollective.Services.X.Y.Z.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json`
+6. Publish: `dotnet nuget push bin/Release/TheNerdCollective.Services.X.Y.Z.nupkg --source https://api.nuget.org/v3/index.json` (uses trusted publishing)
 
 ### Release Components (TheNerdCollective.Components)
 1. Bump version in: `src/TheNerdCollective.Components/TheNerdCollective.Components.csproj`
@@ -29,7 +29,7 @@ When user says "release MudComponent", "release Services", "release Components",
 3. Create tag: `git tag -a components-vX.Y.Z -m "Release vX.Y.Z - <description>"`
 4. Push: `git push origin main && git push origin components-vX.Y.Z`
 5. Build: `cd src/TheNerdCollective.Components && dotnet pack -c Release`
-6. Publish: `dotnet nuget push bin/Release/TheNerdCollective.Components.X.Y.Z.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json`
+6. Publish: `dotnet nuget push bin/Release/TheNerdCollective.Components.X.Y.Z.nupkg --source https://api.nuget.org/v3/index.json` (uses trusted publishing)
 
 ### Release Helpers (TheNerdCollective.Helpers)
 1. Bump version in: `src/TheNerdCollective.Helpers/TheNerdCollective.Helpers.csproj`
@@ -37,6 +37,6 @@ When user says "release MudComponent", "release Services", "release Components",
 3. Create tag: `git tag -a helpers-vX.Y.Z -m "Release vX.Y.Z - <description>"`
 4. Push: `git push origin main && git push origin helpers-vX.Y.Z`
 5. Build: `cd src/TheNerdCollective.Helpers && dotnet pack -c Release`
-6. Publish: `dotnet nuget push bin/Release/TheNerdCollective.Helpers.X.Y.Z.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json`
+6. Publish: `dotnet nuget push bin/Release/TheNerdCollective.Helpers.X.Y.Z.nupkg --source https://api.nuget.org/v3/index.json` (uses trusted publishing)
 
 **Note:** Replace X.Y.Z with actual version number and <description> with meaningful release description. Always ask user for the version and description if not provided.

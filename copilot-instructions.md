@@ -195,3 +195,14 @@ When user says "release MudComponent", "release Services", "release Components",
 6. Publish: `dotnet nuget push bin/Release/TheNerdCollective.Helpers.X.Y.Z.nupkg --source https://api.nuget.org/v3/index.json` (uses trusted publishing)
 
 **Note:** Replace X.Y.Z with actual version number and <description> with meaningful release description. Always ask user for the version and description if not provided.
+
+### ⚠️ If Package Fails to Publish to NuGet:
+If a package was successfully built but failed to publish to NuGet (e.g., due to workflow issues):
+1. Bump the patch version (X.Y.Z → X.Y.Z+1) in the package's `.csproj`
+2. Commit: `git commit -m "chore: bump <PackageName> to vX.Y.Z+1 for NuGet publishing"`
+3. Push: `git push origin main`
+4. The publish workflow will automatically run again with the new version
+5. Monitor Actions tab to verify successful publish
+
+**WHY**: The workflows trigger on every push to main, so bumping the version ensures the workflow runs with the latest code/fixes and publishes successfully.
+

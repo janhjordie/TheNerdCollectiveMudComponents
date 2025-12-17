@@ -55,6 +55,11 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{ steps.oidc.outputs.token }}
         run: |
+          set -euo pipefail
+          if [ -z "${NUGET_AUTH_TOKEN:-}" ]; then
+            echo "NUGET_AUTH_TOKEN missing (trusted publishing token)" >&2
+            exit 1
+          fi
           for nupkg in artifacts/*.nupkg; do
             dotnet nuget push "$nupkg" --source https://api.nuget.org/v3/index.json --api-key "$NUGET_AUTH_TOKEN" --skip-duplicate
           done

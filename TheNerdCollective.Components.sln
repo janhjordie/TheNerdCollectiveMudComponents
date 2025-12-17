@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheNerdCollective.Helpers",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheNerdCollective.Integrations.Harvest", "src\TheNerdCollective.Integrations.Harvest\TheNerdCollective.Integrations.Harvest.csproj", "{7I9J8909-4IG7-7822-I8GK-I5IK0H318473}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheNerdCollective.MudComponents.Timesheet", "src\TheNerdCollective.MudComponents.Timesheet\TheNerdCollective.MudComponents.Timesheet.csproj", "{8J0K9010-5JH8-8933-J9HL-J6JL1I429584}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheNerdCollective.MudComponents.HarvestTimesheet", "src\TheNerdCollective.MudComponents.HarvestTimesheet\TheNerdCollective.MudComponents.HarvestTimesheet.csproj", "{8J0K9010-5JH8-8933-J9HL-J6JL1I429584}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using TheNerdCollective.Integrations.Harvest;
 using TheNerdCollective.Integrations.Harvest.Models;
 
-namespace TheNerdCollective.MudComponents.Timesheet;
+namespace TheNerdCollective.MudComponents.HarvestTimesheet;
 
 /// <summary>
 /// A Blazor component for displaying timesheet entries from Harvest API.

@@ -5,12 +5,40 @@ Important Copilot Instructions
 
 ## Trusted Publishing Reminder
 
-**CRITICAL: All NuGet package publishing uses Trusted Publishing (OIDC) via GitHub Actions.**
-- Never use API keys in workflows or code
-- Workflows automatically receive OIDC tokens from GitHub Actions
-- Use `${{ secrets.NUGET_PUBLISH_KEY }}` as NUGET_AUTH_TOKEN environment variable for `dotnet nuget push`
-- The `NuGet/login@v1` action is NOT compatible with OIDC - use environment variables instead
-- For local publishing (not recommended), API keys are NOT stored in the repository
+**CRITICAL: All NuGet package publishing MUST use Trusted Publishing (OIDC) via GitHub Actions.**
+
+### ✅ CORRECT Approach (ALWAYS USE THIS):
+```yaml
+- name: Get OIDC Token
+  id: oidc
+  uses: actions/github-script@v7
+  with:
+    script: |
+      const token = await core.getIDToken('https://api.nuget.org/v3/index.json');
+      core.setSecret(token);
+      core.setOutput('token', token);
+
+- name: Push to NuGet
+  env:
+    NUGET_TOKEN: ${{ steps.oidc.outputs.token }}
+  run: |
+    for nupkg in artifacts/*.nupkg; do
+      dotnet nuget push "$nupkg" -s https://api.nuget.org/v3/index.json -k "$NUGET_TOKEN" --skip-duplicate
+    done
+```
+
+### ❌ NEVER use these approaches:
+- `NuGet/login@v1` action - incompatible with OIDC
+- `${{ secrets.NUGET_PUBLISH_KEY }}` as NUGET_AUTH_TOKEN environment variable
+- Any hardcoded API keys in workflows
+- `--api-key` parameter without the `-s` source parameter
+
+### Key Points:
+- Use `actions/github-script@v7` to get the OIDC token from GitHub
+- Pass token as `-k "$NUGET_TOKEN"` parameter to `dotnet nuget push`
+- Always use `-s https://api.nuget.org/v3/index.json` (v3 API, not v2)
+- Include `--skip-duplicate` to handle re-runs gracefully
+- This works for ALL new packages/workflows without any secrets needed
 
 ## Release Workflows
 

@@ -51,6 +51,18 @@ jobs:
       - name: Configure NuGet Sources
         run: dotnet nuget update source nuget.org -s https://api.nuget.org/v3/index.json --configfile ./NuGet.config 2>/dev/null || dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org --configfile ./NuGet.config
 
+      - name: Diagnostics
+        env:
+          NUGET_AUTH_TOKEN: ${{ steps.oidc.outputs.token }}
+        run: |
+          set -euo pipefail
+          echo "dotnet --info"
+          dotnet --info
+          echo "NuGet sources (configfile ./NuGet.config):"
+          dotnet nuget list source --configfile ./NuGet.config
+          echo "GitHub context: repo=$GITHUB_REPOSITORY workflow=$GITHUB_WORKFLOW ref=$GITHUB_REF run_attempt=$GITHUB_RUN_ATTEMPT"
+          echo "NUGET_AUTH_TOKEN length: ${#NUGET_AUTH_TOKEN:-0}"
+
       - name: Push to NuGet
         env:
           NUGET_AUTH_TOKEN: ${{ steps.oidc.outputs.token }}

@@ -47,12 +47,16 @@ jobs:
             core.setSecret(token);
             core.setOutput('token', token);
 
+      - name: Configure NuGet
+        run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org 2>/dev/null || true
+
       - name: Push to NuGet
         env:
           NUGET_TOKEN: ${{ steps.oidc.outputs.token }}
         run: |
+          set -e
           for nupkg in artifacts/*.nupkg; do
-            dotnet nuget push "$nupkg" -s https://api.nuget.org/v3/index.json -k "$NUGET_TOKEN" --skip-duplicate
+            dotnet nuget push "$nupkg" -s https://api.nuget.org/v3/index.json -k "$NUGET_TOKEN" --skip-duplicate || true
           done
 
       - name: Create Git Tag

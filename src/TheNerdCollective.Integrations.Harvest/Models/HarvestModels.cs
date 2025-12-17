@@ -20,6 +20,7 @@ public class TimesheetEntry
     public string Notes { get; set; } = string.Empty;
     public string ExternalReferencePermalink { get; set; } = string.Empty;
     public string ExternalReferenceService { get; set; } = string.Empty;
+    public string ExternalReferenceServiceIconUrl { get; set; } = string.Empty;
     public string RawEntryJson { get; set; } = string.Empty;
     public decimal Hours { get; set; }
     public DateTime SpentDate { get; set; }
@@ -89,6 +90,9 @@ public class HarvestExternalReference
 
     public string? Service { get; set; }
     public string? Permalink { get; set; }
+
+    [JsonPropertyName("service_icon_url")]
+    public string? ServiceIconUrl { get; set; }
 }
 
 /// <summary>

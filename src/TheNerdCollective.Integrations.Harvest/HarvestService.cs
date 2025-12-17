@@ -165,6 +165,7 @@ public class HarvestService
             Notes = entry.Notes ?? string.Empty,
             ExternalReferencePermalink = entry.ExternalReference?.Permalink ?? string.Empty,
             ExternalReferenceService = entry.ExternalReference?.Service ?? string.Empty,
+            ExternalReferenceServiceIconUrl = entry.ExternalReference?.ServiceIconUrl ?? string.Empty,
             RawEntryJson = rawJson,
             Hours = entry.Hours,
             SpentDate = !string.IsNullOrEmpty(entry.SpentDate) ? DateTime.Parse(entry.SpentDate) : DateTime.Now,

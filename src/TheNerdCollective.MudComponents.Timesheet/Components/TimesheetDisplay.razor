@@ -1,0 +1,109 @@
+@namespace TheNerdCollective.MudComponents.Timesheet
+@using MudBlazor
+@using TheNerdCollective.Integrations.Harvest
+@using TheNerdCollective.Integrations.Harvest.Models
+
+<div class="mud-content">
+    <MudContainer MaxWidth="MaxWidth.Large" Class="py-8">
+        <div class="d-flex justify-space-between align-center mb-6">
+            <MudText Typo="Typo.h4" GutterBottom="true">Timesheet Registrations</MudText>
+        </div>
+
+        @* Month & Year Selection *@
+        <MudPaper Class="pa-6 mb-6">
+            <MudGrid>
+                <MudItem xs="12" sm="4" md="4" Class="d-flex align-center gap-2">
+                    <MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="PreviousMonth">
+                        ← Previous
+                    </MudButton>
+                </MudItem>
+                <MudItem xs="12" sm="4" md="4" Class="d-flex align-center justify-center">
+                    <MudText Typo="Typo.h6">
+                        <strong>@SelectedDate?.ToString("MMMM yyyy")</strong>
+                    </MudText>
+                </MudItem>
+                <MudItem xs="12" sm="4" md="4" Class="d-flex align-center gap-2">
+                    <MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="NextMonth">
+                        Next →
+                    </MudButton>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+
+        @* Timesheet Table *@
+        @if (IsLoading)
+        {
+            <MudProgressLinear Indeterminate="true" Class="my-4" />
+            <MudText Align="Align.Center" Class="py-8">Loading timesheet data...</MudText>
+        }
+        else if (Timesheets.Count == 0)
+        {
+            <MudAlert Severity="Severity.Info">No timesheet entries found for the selected month.</MudAlert>
+        }
+        else
+        {
+            <MudPaper Class="pa-6 mb-6">
+                <MudTable Items="Timesheets" Hover="true" Striped="true" Bordered="true" Dense="true">
+                    <HeaderContent>
+                        <MudTh>Date</MudTh>
+                        <MudTh>Project</MudTh>
+                        <MudTh>Task</MudTh>
+                        <MudTh>User</MudTh>
+                        <MudTh>Notes</MudTh>
+                        <MudTh Style="text-align: right;">Hours</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd>@context.SpentDate.ToString("dd/MM/yyyy")</MudTd>
+                        <MudTd>@context.ProjectName</MudTd>
+                        <MudTd>
+                            <div Class="d-flex align-center gap-2">
+                                <span>@context.TaskName</span>
+                                @if (context.TaskName?.Contains("(U/B)") ?? false)
+                                {
+                                    <MudIcon Icon="@Icons.Material.Filled.AttachMoney" Color="Color.Warning" Size="Size.Small" Title="Unpaid hours" />
+                                }
+                            </div>
+                        </MudTd>
+                        <MudTd>@context.UserName</MudTd>
+                        <MudTd>@context.Notes</MudTd>
+                        <MudTd Style="text-align: right;">
+                            <MudText Typo="Typo.body2" Color="Color.Primary">
+                                <strong>@context.Hours.ToString("F2")</strong>
+                            </MudText>
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+
+                @* Summary Section *@
+                <MudPaper Class="mt-6 pa-4" Elevation="0">
+                    <MudGrid>
+                        <MudItem xs="12" sm="6" md="3">
+                            <MudText Typo="Typo.subtitle2">Billable Hours</MudText>
+                            <MudText Typo="Typo.h5" Color="Color.Success">
+                                <strong>@BillableHours.ToString("F2")</strong>
+                            </MudText>
+                        </MudItem>
+                        <MudItem xs="12" sm="6" md="3">
+                            <MudText Typo="Typo.subtitle2">Total Hours</MudText>
+                            <MudText Typo="Typo.h5" Color="Color.Primary">
+                                <strong>@TotalHours.ToString("F2")</strong>
+                            </MudText>
+                        </MudItem>
+                        <MudItem xs="12" sm="6" md="3">
+                            <MudText Typo="Typo.subtitle2">Hours (U/B)</MudText>
+                            <MudText Typo="Typo.h5" Color="Color.Warning">
+                                <strong>@UnbilledHours.ToString("F2")</strong>
+                            </MudText>
+                        </MudItem>
+                        <MudItem xs="12" sm="6" md="3">
+                            <MudText Typo="Typo.subtitle2">Entries</MudText>
+                            <MudText Typo="Typo.h5">
+                                <strong>@Timesheets.Count</strong>
+                            </MudText>
+                        </MudItem>
+                    </MudGrid>
+                </MudPaper>
+            </MudPaper>
+        }
+    </MudContainer>
+</div>

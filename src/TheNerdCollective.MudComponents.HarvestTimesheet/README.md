@@ -8,7 +8,7 @@ TheNerdCollective.MudComponents.HarvestTimesheet provides a beautiful, interacti
 
 ## Screenshots
 
-![Timesheet Display](https://raw.githubusercontent.com/janhjordie/TheNerdCollective.Components/main/src/TheNerdCollective.MudComponents.HarvestTimesheet/images/timesheet-screenshot.png)
+![Timesheet Display](https://raw.githubusercontent.com/janhjordie/TheNerdCollective.Components/refs/heads/main/src/TheNerdCollective.MudComponents.HarvestTimesheet/Docs/Timesheet.png)
 
 The component displays:
 - Month navigation with previous/next controls

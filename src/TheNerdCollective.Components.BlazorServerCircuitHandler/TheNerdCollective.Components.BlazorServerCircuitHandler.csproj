@@ -6,18 +6,24 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>TheNerdCollective.Components.BlazorServerCircuitHandler</RootNamespace>
     <AssemblyName>TheNerdCollective.Components.BlazorServerCircuitHandler</AssemblyName>
+    <PackageId>TheNerdCollective.Components.BlazorServerCircuitHandler</PackageId>
     <Version>1.0.0</Version>
-    <Authors>Jan Hjørdie</Authors>
+    <Authors>The Nerd Collective</Authors>
     <Description>A complete Blazor Server circuit reconnection handler with auto-reconnect UI and graceful error handling. Includes JavaScript reconnection logic with exponential backoff and professional reconnection overlays.</Description>
-    <PackageProjectUrl>https://github.com/janhjordie/TheNerdCollective.Components</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>blazor;blazor-server;circuit;reconnection;signalr;handler;ui;razor-component</PackageTags>
+    <License>Apache-2.0</License>
+    <LicenseExpression>Apache-2.0</LicenseExpression>
     <RepositoryUrl>https://github.com/janhjordie/TheNerdCollective.Components</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>blazor;circuit;reconnection;signalr;handler;ui</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

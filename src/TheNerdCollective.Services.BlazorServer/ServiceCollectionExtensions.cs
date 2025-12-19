@@ -6,12 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 /// <summary>
-/// Extension methods for registering Blazor Server services and configuration.
-/// This enables shared configuration across multiple Blazor Server applications.
+/// Extension methods for registering Blazor Server circuit services and configuration.
+/// This enables shared circuit configuration across multiple Blazor Server applications.
 /// 
 /// Usage in Program.cs:
-///   builder.Services.AddBlazorServerServices(builder.Configuration, builder.Environment);
-///   builder.Host.ConfigureBlazorServerShutdown();
+///   builder.Services.AddBlazorServerCircuitServices(builder.Configuration, builder.Environment);
+///   builder.Host.ConfigureBlazorServerCircuitShutdown();
 /// </summary>
 public static class ServiceCollectionExtensions
 {
@@ -23,7 +23,7 @@ public static class ServiceCollectionExtensions
     /// <param name="configuration">Application configuration</param>
     /// <param name="environment">Host environment</param>
     /// <returns>The service collection for chaining</returns>
-    public static IServiceCollection AddBlazorServerServices(
+    public static IServiceCollection AddBlazorServerCircuitServices(
         this IServiceCollection services,
         IConfiguration configuration,
         IHostEnvironment environment)
@@ -49,12 +49,12 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
-    /// Configures graceful shutdown timeout for the host.
+    /// Configures graceful shutdown timeout for Blazor Server circuits.
     /// Reduces default shutdown timeout from 30 seconds to 5 seconds for faster development cycles.
     /// </summary>
     /// <param name="builder">The host builder</param>
     /// <returns>The host builder for chaining</returns>
-    public static IHostBuilder ConfigureBlazorServerShutdown(this IHostBuilder builder)
+    public static IHostBuilder ConfigureBlazorServerCircuitShutdown(this IHostBuilder builder)
     {
         builder.ConfigureHostOptions(options =>
         {

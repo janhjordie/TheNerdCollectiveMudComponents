@@ -23,8 +23,8 @@ using TheNerdCollective.Services.BlazorServer;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Blazor Server circuit options
-builder.Services.AddBlazorServerServices(builder.Configuration, builder.Environment);
-builder.Host.ConfigureBlazorServerShutdown();
+builder.Services.AddBlazorServerCircuitServices(builder.Configuration, builder.Environment);
+builder.Host.ConfigureBlazorServerCircuitShutdown();
 
 var app = builder.Build();
 ```

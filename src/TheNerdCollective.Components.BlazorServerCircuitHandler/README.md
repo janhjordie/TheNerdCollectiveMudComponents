@@ -21,10 +21,21 @@ dotnet add package TheNerdCollective.Components.BlazorServerCircuitHandler
 ### Setup
 
 1. **Add to your root component** (`App.razor`):
+
 ```razor
-<Routes @rendermode="InteractiveServer" />
-<CircuitReconnectionHandler @rendermode="InteractiveServer" />
+<body>
+    <Routes @rendermode="InteractiveServer" />
+    
+    <!-- IMPORTANT: Load blazor.web.js BEFORE CircuitReconnectionHandler -->
+    <script src="_framework/blazor.web.js" autostart="false"></script>
+    <CircuitReconnectionHandler @rendermode="InteractiveServer" />
+    
+    <!-- Other scripts after -->
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+</body>
 ```
+
+⚠️ **Critical:** The `blazor.web.js` script must be loaded **before** the `CircuitReconnectionHandler` component. The handler calls `Blazor.start()` which requires Blazor to be already loaded.
 
 2. **Import in `_Imports.razor`**:
 ```csharp
@@ -65,11 +76,36 @@ Result: Fresh session with new app instance
 
 ## Configuration
 
+### Important: Script Load Order
+
+When customizing the dialog with inline JavaScript, configure BEFORE loading the component:
+
+```razor
+<body>
+    <Routes @rendermode="InteractiveServer" />
+    
+    <!-- 1. Configuration script (optional, for customization) -->
+    <script>
+        window.configureBlazorReconnection({
+            reconnectingHtml: `<div>Your custom HTML</div>`,
+            primaryColor: '#FF5722'
+        });
+    </script>
+    
+    <!-- 2. Load Blazor framework -->
+    <script src="_framework/blazor.web.js" autostart="false"></script>
+    
+    <!-- 3. Load reconnection handler -->
+    <CircuitReconnectionHandler @rendermode="InteractiveServer" />
+</body>
+```
+
 ### Basic Usage
 
 The handler uses sensible defaults and requires zero configuration:
 
 ```razor
+<script src="_framework/blazor.web.js" autostart="false"></script>
 <CircuitReconnectionHandler @rendermode="InteractiveServer" />
 ```
 

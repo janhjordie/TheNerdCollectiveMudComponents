@@ -17,21 +17,194 @@
     let reconnectModal = null;
     let currentInterval = initialInterval;
     
-    // Default configuration (can be overridden via window.configureBlazorReconnection)
+    // Read configuration from window.blazorReconnectionConfig (set before script loads)
     let config = {
         reconnectingHtml: null,
         serverRestartHtml: null,
+        deploymentHtml: null,
+        statusUrl: '/reconnection-status.json',
+        checkStatus: true,
+        statusPollInterval: 5000,
         customCss: null,
         spinnerUrl: null,
         primaryColor: '#594AE2',
-        successColor: '#4CAF50'
+        successColor: '#4CAF50',
+        ...(window.blazorReconnectionConfig || {})
     };
 
-    // Configuration API - call this before Blazor starts
+    console.log('[Blazor] Reconnection handler initializing with config:', config);
+
+    // Status tracking
+    let reconnectionStatus = null;
+    let statusCheckInterval = null;
+    let lastVersion = null;
+
+    // Legacy API - for backward compatibility
     window.configureBlazorReconnection = (options) => {
         config = { ...config, ...options };
         console.log('[Blazor] Reconnection dialog configured with custom options');
     };
+
+    // Detect if running locally
+    function isLocalhost() {
+        const hostname = window.location.hostname;
+        return hostname === 'localhost' || 
+               hostname === '127.0.0.1' || 
+               hostname === '[::1]' || 
+               hostname.match(/^192\.168\.\d{1,3}\.\d{1,3}$/) || // Local network
+               hostname.match(/^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$/); // Docker/containers
+    }
+
+    // Check reconnection status
+    async function checkReconnectionStatus() {
+        if (!config.checkStatus) return null;
+        
+        // Try local dev file first when running locally
+        if (isLocalhost()) {
+            try {
+                const devUrl = '/reconnection-status.dev.json?t=' + Date.now();
+                console.log('[Blazor] Trying local dev status file:', devUrl);
+                
+                const devResponse = await fetch(devUrl, {
+                    cache: 'no-cache',
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                if (devResponse.ok) {
+                    const status = await devResponse.json();
+                    console.log('[Blazor] ✅ Local dev status loaded:', status);
+                    return status;
+                }
+            } catch (e) {
+                console.log('[Blazor] No local dev status file, falling back to configured URL');
+            }
+        }
+        
+        // Fall back to configured statusUrl (production blob storage or default)
+        try {
+            const response = await fetch(config.statusUrl + '?t=' + Date.now(), {
+                cache: 'no-cache',
+                headers: { 'Accept': 'application/json' }
+            });
+            
+            if (response.ok) {
+                const status = await response.json();
+                console.log('[Blazor] Reconnection status loaded:', status);
+                return status;
+            }
+        } catch (e) {
+            console.log('[Blazor] Could not load reconnection status, using defaults');
+        }
+        
+        return null;
+    }
+
+    // Get message from status
+    function getStatusMessage(status, isDeployment = false) {
+        if (!status) return null;
+        
+        if (isDeployment && status.deploymentMessage) {
+            return status.deploymentMessage;
+        }
+        
+        return status.reconnectingMessage || null;
+    }
+
+    // Check if status indicates deployment
+    function isDeploying(status) {
+        return status && (status.status === 'deploying' || status.deploymentMessage);
+    }
+
+    // Generate deployment/reconnection HTML with status
+    function getStatusHtml(status) {
+        const isDeploymentMode = isDeploying(status);
+        
+        if (isDeploymentMode && config.deploymentHtml) {
+            return config.deploymentHtml;
+        }
+        
+        if (!isDeploymentMode && config.reconnectingHtml) {
+            return config.reconnectingHtml;
+        }
+
+        const message = getStatusMessage(status, isDeploymentMode) || 
+                       (isDeploymentMode ? 'We are deploying new features. Please wait...' : 'Reconnecting...');
+        const features = status?.features || [];
+        const estimatedMinutes = status?.estimatedDurationMinutes || status?.estimatedMinutes;
+        const version = status?.version;
+        
+        let featuresHtml = '';
+        if (isDeploymentMode && features.length > 0) {
+            featuresHtml = `
+                <ul style='margin: 1rem 0; padding-left: 1.5rem; text-align: left; color: #555;'>
+                    ${features.map(f => `<li>${f}</li>`).join('')}
+                </ul>
+            `;
+        }
+
+        let estimateHtml = '';
+        if (isDeploymentMode && estimatedMinutes) {
+            estimateHtml = `
+                <p style='margin: 0.5rem 0 0; color: #999; font-size: 0.9rem;'>
+                    Estimated time: ${estimatedMinutes} minute${estimatedMinutes !== 1 ? 's' : ''}
+                </p>
+            `;
+        }
+
+        let versionHtml = '';
+        if (version) {
+            versionHtml = `
+                <p style='margin: 0.5rem 0 0; color: #bbb; font-size: 0.8rem;'>
+                    Version: ${version}
+                </p>
+            `;
+        }
+
+        const spinnerSvg = config.spinnerUrl 
+            ? `<img src="${config.spinnerUrl}" style="width: 48px; height: 48px; margin: 0 auto 1rem; animation: spin 1s linear infinite;" alt="Loading" />`
+            : `<svg style="width: 48px; height: 48px; margin: 0 auto 1rem; animation: spin 1s linear infinite;" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" fill="none" stroke="${config.primaryColor}" stroke-width="3" 
+                        stroke-dasharray="31.4" stroke-dashoffset="10" stroke-linecap="round"/>
+               </svg>`;
+        
+        const title = isDeploymentMode ? '🚀 Deploying Updates' : 'Connection Lost';
+        const subtitle = isDeploymentMode 
+            ? 'The page will reload automatically when complete.'
+            : `Next attempt in <span id='countdown-seconds'>1</span>s`;
+        
+        return `
+            <div style='position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+                        background: rgba(0, 0, 0, 0.85); z-index: 9999; 
+                        display: flex; align-items: center; justify-content: center;'>
+                <div style='background: white; padding: 3rem; border-radius: 12px; 
+                            max-width: 500px; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.2);'>
+                    ${spinnerSvg}
+                    <h3 style='margin: 0 0 1rem; color: #333; font-size: 1.5rem; font-weight: 500;'>
+                        ${title}
+                    </h3>
+                    <p id='reconnect-status' style='margin: 0 0 0.5rem; color: #666; font-size: 1rem;'>
+                        ${message}
+                    </p>
+                    ${featuresHtml}
+                    ${estimateHtml}
+                    ${versionHtml}
+                    <p id='reconnect-countdown' style='margin: 1.5rem 0 ${isDeploymentMode ? '0' : '1rem'}; color: #999; font-size: 0.85rem;'>
+                        ${subtitle}
+                    </p>
+                    ${isDeploymentMode ? '' : `
+                        <button id='manual-reload-btn' 
+                                style='background: ${config.primaryColor}; color: white; border: none; 
+                                       padding: 0.75rem 2rem; border-radius: 6px; 
+                                       cursor: pointer; font-size: 1rem; font-weight: 500;
+                                       transition: background 0.2s;'>
+                            Genindlæs nu
+                        </button>
+                    `}
+                </div>
+            </div>
+            ${config.customCss ? '' : `<style>@keyframes spin { to { transform: rotate(360deg); } }</style>`}
+        `;
+    }
     
     // Generate default reconnecting HTML
     function getDefaultReconnectingHtml() {
@@ -199,6 +372,23 @@
             return;
         }
         
+        // Check for circuit expiry - trigger reload
+        if (message.includes('circuit state could not be retrieved') ||
+            (message.includes('circuit') && message.includes('expired'))) {
+            console.log('[Blazor] Circuit expired detected, reloading in 2 seconds...');
+            
+            // Show server restart UI
+            if (reconnectModal) {
+                reconnectModal.innerHTML = config.serverRestartHtml || getDefaultServerRestartHtml();
+            }
+            
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+            
+            return;
+        }
+        
         originalConsoleError.apply(console, args);
     };
 
@@ -288,12 +478,144 @@
 
     // Check if Blazor has already started (handles autostart scenarios)
     if (window.Blazor && typeof window.Blazor._internal !== 'undefined') {
-        console.log('[Blazor] Already started, skipping custom start configuration');
+        console.log('[Blazor] Already started, hooking into existing reconnection system');
+        
+        // Listen for circuit expiry errors and auto-reload
+        window.addEventListener('unhandledrejection', (event) => {
+            const error = event.reason?.toString() || '';
+            if (error.includes('circuit state could not be retrieved') || 
+                error.includes('circuit') && error.includes('expired')) {
+                console.log('[Blazor] Circuit expired, reloading page in 2 seconds...');
+                event.preventDefault();
+                
+                // Show server restart UI briefly before reload
+                if (reconnectModal) {
+                    reconnectModal.innerHTML = config.serverRestartHtml || getDefaultServerRestartHtml();
+                }
+                
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            }
+        });
+        
+        // Monitor for the default Blazor reconnect modal and replace it with ours
+        const observer = new MutationObserver(async () => {
+            const defaultModal = document.getElementById('components-reconnect-modal');
+            if (defaultModal && !isInitialLoad) {
+                console.log('[Blazor] Default reconnect modal detected, loading status...');
+                
+                // Load reconnection status
+                reconnectionStatus = await checkReconnectionStatus();
+                const deploymentMode = isDeploying(reconnectionStatus);
+                
+                if (deploymentMode) {
+                    console.log('[Blazor] Deployment mode - showing deployment UI');
+                } else {
+                    console.log('[Blazor] Normal mode - showing reconnection UI');
+                }
+                
+                defaultModal.style.display = 'none';
+                
+                if (!reconnectModal) {
+                    reconnectModal = document.createElement('div');
+                    reconnectModal.id = 'blazor-reconnect-modal';
+                    reconnectModal.innerHTML = getStatusHtml(reconnectionStatus);
+                    
+                    if (config.customCss) {
+                        const style = document.createElement('style');
+                        style.textContent = config.customCss;
+                        reconnectModal.appendChild(style);
+                    }
+                    
+                    document.body.appendChild(reconnectModal);
+                    
+                    if (deploymentMode) {
+                        // Poll for deployment completion
+                        lastVersion = reconnectionStatus?.version;
+                        statusCheckInterval = setInterval(async () => {
+                            const status = await checkReconnectionStatus();
+                            if (!status) {
+                                console.log('[Blazor] Status file removed, reloading...');
+                                clearInterval(statusCheckInterval);
+                                window.location.reload();
+                                return;
+                            }
+                            
+                            // Check if version changed or no longer deploying
+                            if (status.version !== lastVersion || !isDeploying(status)) {
+                                console.log('[Blazor] Deployment completed, reloading...');
+                                clearInterval(statusCheckInterval);
+                                window.location.reload();
+                            }
+                        }, config.statusPollInterval);
+                    } else {
+                        // Setup manual reload button for normal reconnection
+                        const reloadBtn = document.getElementById('manual-reload-btn');
+                        if (reloadBtn) {
+                            reloadBtn.onclick = () => window.location.reload();
+                        }
+                        
+                        // Start reconnection countdown
+                        let attemptCount = 0;
+                        const attemptReconnect = () => {
+                            attemptCount++;
+                            const seconds = Math.min(maxInterval / 1000, Math.ceil(attemptCount / 2));
+                            
+                            console.log(`[Blazor] Reconnection attempt ${attemptCount} (${seconds}s interval)`);
+                            
+                            // Update countdown
+                            const countdownElement = document.getElementById('countdown-seconds');
+                            if (countdownElement) {
+                                let countdown = seconds;
+                                const countdownInterval = setInterval(() => {
+                                    countdown--;
+                                    if (countdownElement && countdown > 0) {
+                                        countdownElement.textContent = countdown;
+                                    } else {
+                                        clearInterval(countdownInterval);
+                                    }
+                                }, 1000);
+                            }
+                            
+                            // Check if default modal is gone (connection restored)
+                            setTimeout(() => {
+                                if (!document.getElementById('components-reconnect-modal')) {
+                                    console.log('[Blazor] Connection restored');
+                                    if (reconnectModal) {
+                                        reconnectModal.remove();
+                                        reconnectModal = null;
+                                    }
+                                } else {
+                                    // Try again
+                                    attemptReconnect();
+                                }
+                            }, seconds * 1000);
+                        };
+                        
+                        attemptReconnect();
+                    }
+                }
+            } else if (!defaultModal && reconnectModal) {
+                // Default modal removed = connection restored
+                console.log('[Blazor] Connection restored, hiding custom UI');
+                if (statusCheckInterval) {
+                    clearInterval(statusCheckInterval);
+                }
+                reconnectModal.remove();
+                reconnectModal = null;
+                reconnectionStatus = null;
+            }
+        });
+        
+        observer.observe(document.body, { childList: true, subtree: true });
+        
         // Mark initial load complete after brief delay
         setTimeout(() => {
             isInitialLoad = false;
-            console.log('[Blazor] Infinite reconnection handler active (post-start)');
+            console.log('[Blazor] Custom reconnection handler active (monitoring mode)');
         }, 1000);
+        
         return;
     }
 

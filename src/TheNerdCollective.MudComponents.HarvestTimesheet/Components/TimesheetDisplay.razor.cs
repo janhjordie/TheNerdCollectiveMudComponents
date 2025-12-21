@@ -206,6 +206,12 @@ public partial class TimesheetDisplay : ComponentBase
         if (args.Key == "Enter")
         {
             await VerifyPassword();
+            // Force focus back to input for next attempt if wrong password
+            if (_passwordIncorrect)
+            {
+                _passwordInput = string.Empty;
+                StateHasChanged();
+            }
         }
     }
 

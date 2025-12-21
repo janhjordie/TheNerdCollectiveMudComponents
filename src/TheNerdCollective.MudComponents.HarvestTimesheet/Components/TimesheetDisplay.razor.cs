@@ -213,7 +213,7 @@ public partial class TimesheetDisplay : ComponentBase
         }
     }
 
-    private async Task HandlePasswordKeyUp(KeyboardEventArgs args)
+    private async Task HandlePasswordKeyDown(KeyboardEventArgs args)
     {
         if (args.Key == "Enter")
         {

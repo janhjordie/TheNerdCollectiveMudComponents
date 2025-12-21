@@ -213,10 +213,11 @@ public partial class TimesheetDisplay : ComponentBase
         }
     }
 
-    private async Task HandlePasswordKeyDown(KeyboardEventArgs args)
+    private async Task HandlePasswordKeyUp(KeyboardEventArgs args)
     {
         if (args.Key == "Enter")
         {
+            // With Immediate=true and DebounceInterval=0, value is already updated
             await VerifyPassword();
         }
     }

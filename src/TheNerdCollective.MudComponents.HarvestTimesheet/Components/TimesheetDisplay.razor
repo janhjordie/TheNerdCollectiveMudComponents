@@ -16,7 +16,8 @@
                     <MudText Typo="Typo.h6">Password Required</MudText>
                     <MudTextField T="string" @bind-Value="_passwordInput"
                                   InputType="InputType.Password" Label="Enter password" Variant="Variant.Outlined" 
-                                  OnKeyDown="HandlePasswordKeyDown" AutoFocus="true" Immediate="true" />
+                                  OnKeyUp="HandlePasswordKeyUp" AutoFocus="true" Immediate="true" 
+                                  DebounceInterval="0" />
                     @if (_passwordIncorrect)
                     {
                         <MudAlert Severity="Severity.Error">Incorrect password. Please try again.</MudAlert>
